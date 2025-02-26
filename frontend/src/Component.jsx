@@ -1,18 +1,17 @@
-
+import axios from "axios"
+import { useState } from "react"
 
 function Component() {
 
-    return (
-        <div>
-        <nav>
-            <div className='flex justify-self-end gap-7'>
-                <a href="#about">About</a>
-                <a href="#skills">Skills</a>
-                <a href="#projects">Projects</a>
-            </div>
-        </nav>
-        </div>
-    )
+
+
+  return (
+    <div className='h-screen flex justify-center items-center bg-gray-800'>
+      <div className=''>
+          <h1 className='font-extrabold text-teal-100 text-4xl'>You Are the Best Software Engineer</h1>
+      </div>
+    </div>
+  )
 }
 
 export default Component

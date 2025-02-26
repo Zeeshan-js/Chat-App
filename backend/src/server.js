@@ -1,19 +1,21 @@
-import { WebSocketServer } from 'ws';
-import connectDB from './db/connectDB.js';
+import app from "./app.js"
+import { Server } from "socket.io"
+import { createServer } from "http"
+import connectDB from "./db/connectDB.js"
 import dotenv from "dotenv"
 
 dotenv.config()
 
-const wss = new WebSocketServer({ port: 8080 });
-
 connectDB()
 
-wss.on('connection', function connection(ws) {
-  ws.on('error', console.error);
+const server = createServer(app)
+const io = new Server(server)
 
-  ws.on('message', function message(data) {
-    console.log('received: %s', data);
-  });
+io.on("connection", (socket) => {
+  console.log("a user is connected")
+})
 
-  ws.send('something');
-});
+
+server.listen(3000, () => {
+  console.log("server is listening on 3000")
+})
