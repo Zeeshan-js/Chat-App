@@ -211,7 +211,7 @@ const assignRole = asyncHandler(async (req, res) => {
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user?._id)
-    const oldAvatar = user.avatar
+    const oldAvatar = user.avatar ? user.avatar.split("/").pop().split(".")[0] : null
 
     let updatedAvatarLocalPath = req.file?.path
 
