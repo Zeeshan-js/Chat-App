@@ -1,4 +1,4 @@
-import { param, validationResult } from "express-validator" 
+import { body, param, validationResult } from "express-validator" 
 import { ApiError } from "../utils/ApiError.js"
 import { asyncHandler } from "../utils/asyncHandler.js"
 
@@ -23,3 +23,23 @@ export const mongoIdPathVariableValidator = (IdName) => asyncHandler(async (req,
         param(IdName).notEmpty().isMongoId().withMessage(`Invalid ${IdName}`)
     ]
 });
+
+
+// Function to validate the min and max group members and to verify that there are menbers
+
+const createAGroupChatValidator = () => {
+    return [
+        body("name").trim().notEmpty().withMessage("Group name is required"),
+        body("participants").isArray({
+            min: 3,
+            max: 100
+        }).withMessage("Participants must be an array with more than 2 and less than 100 members")
+    ]
+}
+
+
+// Function to verify the group name when the admin decides to change it
+
+const updateGroupChatNameValidator = () => {
+    return [body("name").trim().notEmpty().withMessage("Group name is required")]
+}

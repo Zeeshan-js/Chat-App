@@ -16,16 +16,16 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 
-app.use(cors({ credentials: true, origin: process.env.CORS_ORIGIN}))
-
   app.get("/api/v1/", (req, res) => {
     res.send("This is working")
   })
 
 
+// import all the Routes here
 import userRoute from "./routes/user.routes.js"
+import chatRoute from "./routes/chat.routes.js"
 
   app.use("/api/v1/user", userRoute)
-
+  app.use("/api/v1/chat-app/chats", chatRoute)
 
 export default app;
