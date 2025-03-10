@@ -6,8 +6,8 @@ export const validate = (req, res, next) => {
     // this is a method to check for any errors in the request the use has sent
     const check = validationResult(req)
     // if there is no error we move to next validation
-    if (check) {
-        next()
+    if (check.isEmpty()) {
+        return next()
     } else {
         const error = []
         check.array().map((ele) => error.push({ [ele.path]: ele.msg}))
@@ -27,7 +27,7 @@ export const mongoIdPathVariableValidator = (IdName) => asyncHandler(async (req,
 
 // Function to validate the min and max group members and to verify that there are menbers
 
-const createAGroupChatValidator = () => {
+export const createAGroupChatValidator = () => {
     return [
         body("name").trim().notEmpty().withMessage("Group name is required"),
         body("participants").isArray({
@@ -40,6 +40,11 @@ const createAGroupChatValidator = () => {
 
 // Function to verify the group name when the admin decides to change it
 
-const updateGroupChatNameValidator = () => {
+export const updateGroupChatNameValidator = () => {
     return [body("name").trim().notEmpty().withMessage("Group name is required")]
+}
+
+
+export const sendMessageValidator = () => {
+    body("content").trim().optional().notEmpty().withMessage("Content is required")
 }

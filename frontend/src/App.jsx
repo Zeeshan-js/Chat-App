@@ -1,15 +1,15 @@
-import { useState } from 'react'
-import Component from './Component'
-import './App.css'
+import { useState } from "react";
+import Component from "./Component.jsx";
+import "./App.css";
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-      <div>
-        <Component />
-      </div>
-  )
+    <div>
+      <Component />
+    </div>
+  );
 }
 
-export default App
+export default App;

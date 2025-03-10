@@ -24,8 +24,10 @@ app.use(cookieParser())
 // import all the Routes here
 import userRoute from "./routes/user.routes.js"
 import chatRoute from "./routes/chat.routes.js"
+import messageRoute from "./routes/message.routes.js"
 
   app.use("/api/v1/user", userRoute)
   app.use("/api/v1/chat-app/chats", chatRoute)
+  app.use("/api/v1/chat-app/messages", messageRoute)
 
 export default app;

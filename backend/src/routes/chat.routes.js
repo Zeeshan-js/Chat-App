@@ -9,6 +9,7 @@ import { createAGroupChat,
         searchAvailableUser, 
         renameGroupChat, 
         deleteGroupChat, 
+        getGroupChatDetails,
         addNewParticipantInGroupChat,
         removeParticipantFromGroupChat,
     } from "../controllers/chat.controller.js"
