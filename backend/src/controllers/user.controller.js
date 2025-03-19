@@ -51,7 +51,7 @@ const registerUser = asyncHandler(async (req, res) => {
         username,
         email,
         password,
-        avatar,
+        avatar: avatar,
         role: role || UserRolesEnum.USER
     })
 

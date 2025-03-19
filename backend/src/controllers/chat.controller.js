@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose, { isValidObjectId, mongo } from "mongoose";
 import { Chat } from "../models/chat.model.js";
 import { User } from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
@@ -125,6 +125,10 @@ const searchAvailableUser = asyncHandler(async (req, res) => {
 const createOrGetAOneOnOneChat = asyncHandler(async (req, res) => {
   const { receiverId } = req.params; // extract the other user id
 
+  if (!isValidObjectId(receiverId)) {
+    throw new ApiError(404, "Invalid User Id")
+  }
+
   const receiver = await User.findById(receiverId);
 
   if (!receiver) {
@@ -166,7 +170,7 @@ const createOrGetAOneOnOneChat = asyncHandler(async (req, res) => {
   }
 
   const newChat = await Chat.create({
-    name: "One on one chat",
+    name: receiver.username,
     participants: [req.user._id, new mongoose.Types.ObjectId(receiverId)],
     admin: req.user._id,
   });
@@ -192,7 +196,7 @@ const createOrGetAOneOnOneChat = asyncHandler(async (req, res) => {
 
     emitSocketEvent(
       req,
-      participant._id.toString(),
+      participant._id?.toString(),
       ChatEventEnum.NEW_CHAT_EVENT,
       payload
     );
@@ -200,7 +204,7 @@ const createOrGetAOneOnOneChat = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new ApiResponse(200, payload, "Chat retrieved successfully"));
+    .json(new ApiResponse(200, payload, "Chat created successfully"));
 });
 
 const createAGroupChat = asyncHandler(async (req, res) => {

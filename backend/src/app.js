@@ -1,10 +1,24 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
-
+import { Server } from "socket.io"
+import { createServer } from "http"
 
 
 const app = express()
+
+const httpServer = createServer(app)
+
+const io = new Server(httpServer, {
+  pingTimeout: 60000,
+  cors: {
+    origin: process.env.CORS_ORIGIN,
+    credentials: true
+  }
+})
+
+app.set("io", io)
+
 
 app.use(cors({
   origin: process.env.CORS_ORIGIN,
@@ -16,18 +30,17 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 
-  app.get("/api/v1/", (req, res) => {
-    res.send("This is working")
-  })
+initializeSocketIo(io)
 
 
 // import all the Routes here
 import userRoute from "./routes/user.routes.js"
 import chatRoute from "./routes/chat.routes.js"
 import messageRoute from "./routes/message.routes.js"
+import { initializeSocketIo } from "./common/index.js"
 
   app.use("/api/v1/user", userRoute)
   app.use("/api/v1/chat-app/chats", chatRoute)
   app.use("/api/v1/chat-app/messages", messageRoute)
 
-export default app;
+export { httpServer };

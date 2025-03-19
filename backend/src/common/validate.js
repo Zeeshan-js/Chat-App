@@ -18,11 +18,11 @@ export const validate = (req, res, next) => {
 };
 
 // This function checks the ID we extract from the params is valid or not
-export const mongoIdPathVariableValidator = (IdName) => asyncHandler(async (req, res, next) => {
+export const mongoIdPathVariableValidator = (IdName) => {
     return [
         param(IdName).notEmpty().isMongoId().withMessage(`Invalid ${IdName}`)
     ]
-});
+};
 
 
 // Function to validate the min and max group members and to verify that there are menbers

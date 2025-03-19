@@ -1,6 +1,4 @@
-import app from "./app.js"
-import { Server } from "socket.io"
-import { createServer } from "http"
+import { httpServer } from "./app.js"
 import connectDB from "./db/connectDB.js"
 import dotenv from "dotenv"
 
@@ -8,14 +6,8 @@ dotenv.config()
 
 connectDB()
 
-const server = createServer(app)
-const io = new Server(server)
+const port = process.env.PORT || 3000
 
-io.on("connection", (socket) => {
-  console.log("a user is connected")
-})
-
-
-server.listen(3000, () => {
-  console.log("server is listening on 3000")
+httpServer.listen(port, () => {
+  console.log(`Server is listening on ${port}`)
 })

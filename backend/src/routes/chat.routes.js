@@ -1,21 +1,27 @@
-import { Router } from "express"
-import { verifyJWT } from "../middlewares/auth.middleware.js"
-import { createAGroupChatValidator, updateGroupChatNameValidator, mongoIdPathVariableValidator, validate } from "../common/validate.js"
+import { Router } from "express";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import {
+  createAGroupChatValidator,
+  updateGroupChatNameValidator,
+  mongoIdPathVariableValidator,
+  validate,
+} from "../common/validate.js";
 
-import { createAGroupChat, 
-        deleteOneOnOneChat, 
-        getAllChats, 
-        leaveGroupChat, 
-        searchAvailableUser, 
-        renameGroupChat, 
-        deleteGroupChat, 
-        getGroupChatDetails,
-        addNewParticipantInGroupChat,
-        removeParticipantFromGroupChat,
-    } from "../controllers/chat.controller.js"
+import {
+  createAGroupChat,
+  deleteOneOnOneChat,
+  getAllChats,
+  leaveGroupChat,
+  searchAvailableUser,
+  renameGroupChat,
+  deleteGroupChat,
+  getGroupChatDetails,
+  addNewParticipantInGroupChat,
+  removeParticipantFromGroupChat,
+  createOrGetAOneOnOneChat,
+} from "../controllers/chat.controller.js";
 
-
-const router = Router()
+const router = Router();
 
 router.use(verifyJWT);
 
@@ -23,11 +29,25 @@ router.route("/").get(getAllChats);
 
 router.route("/users").get(searchAvailableUser);
 
-router.route("/group").post(createAGroupChatValidator(), validate, createAGroupChat);
+router
+  .route("/c/:receiverId")
+  .post(
+    mongoIdPathVariableValidator("receiverId"),
+    validate,
+    createOrGetAOneOnOneChat
+  );
 
-router.route("/leave/group/:chatId").delete(mongoIdPathVariableValidator("chatId"), validate, leaveGroupChat);
+router
+  .route("/group")
+  .post(createAGroupChatValidator(), validate, createAGroupChat);
 
-router.route("/remove/:chatId").delete(mongoIdPathVariableValidator("chatId"), validate, deleteOneOnOneChat);
+router
+  .route("/leave/group/:chatId")
+  .delete(mongoIdPathVariableValidator("chatId"), validate, leaveGroupChat);
+
+router
+  .route("/remove/:chatId")
+  .delete(mongoIdPathVariableValidator("chatId"), validate, deleteOneOnOneChat);
 
 router
   .route("/group/:chatId")
@@ -40,7 +60,7 @@ router
   )
   .delete(mongoIdPathVariableValidator("chatId"), validate, deleteGroupChat);
 
-  router
+router
   .route("/group/:chatId/:participantId")
   .post(
     mongoIdPathVariableValidator("chatId"),
@@ -54,6 +74,5 @@ router
     validate,
     removeParticipantFromGroupChat
   );
-
 
 export default router;
