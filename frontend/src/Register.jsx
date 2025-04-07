@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Upload, User, Mail, Lock, ConstructionIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useAuth } from "./context/AuthContext.jsx";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ function Register() {
   });
 
   const { username, email, password, avatar } = formData;
+
+  const { register } = useAuth()
 
   const handleClick = (e) => {
     const file = e.target.files[0];
@@ -34,8 +37,7 @@ function Register() {
     data.append("avatar", formData.avatar);
 
     try {
-      const response = await axios.post("api/v1/user/register", data);
-      console.log(response.data);
+      const response = register(data)
     } catch (error) {
       console.log("Error while registering user :", error);
     }

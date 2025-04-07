@@ -1,27 +1,26 @@
-import axios from "axios";
+import axios from "axios";  
 import { Mail, Lock } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
+import { loginUser } from "./api/index.js";
+import { useAuth } from "./context/AuthContext.jsx";
 
 function Login() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [data, setData] = useState({
+    email: "",
+    password: "",
+  })
 
-  const navigate = useNavigate();
+  const { login } = useAuth()
+
+  const handleChange = (name) => (e) => {
+    setData({ ...data, [name]: e.target.value })
+  }
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const response = await axios.post("/api/v1/user/login", { email, password })
-
-      if (response.status === 200) {
-        navigate("/main")
-      }
-    } catch (error) {
-      console.log("Failed to login :", error)
-    }
+    e.preventDefault()
+    return await login(data)
   }
 
 
@@ -37,8 +36,8 @@ function Login() {
             <input
               className="w-full border rounded-lg focus:ring focus:ring-blue-600 p-3 pl-12"
               name='email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={data.email}
+              onChange={handleChange("email")}
               placeholder="email"
               type="email"
             />
@@ -48,14 +47,14 @@ function Login() {
             <Lock className="absolute top-3 left-3 text-gray-500" />
             <input
               className="w-full border rounded-lg focus:ring focus:ring-blue-600 p-3 pl-12"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={data.password}
+              onChange={handleChange("password")}
               placeholder="Password"
               type="password"
             />
           </div>
 
-          <button className="w-full border rounded-lg p-2 text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition">Login</button>
+          <button onClick={handleSubmit} className="w-full border rounded-lg p-2 text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition">Login</button>
         </form>
         <p className="text-sm mt-5 text-center">Don't have an account <a href='/register' className="text-blue-600 underline">sign up</a> here</p>
       </div>
