@@ -38,10 +38,28 @@ const getAllChats = () => {
     return api.get("api/v1/chat-app/chats")
 }
 
+const getAvailableUsers = () => {
+    return api.get("api/v1/chat-app/chats/users")
+}
+
+// create a new chat
+const createUserChat = (recieverId) => {
+    return api.post(`api/v1/chat-app/chats/c/${recieverId}`)
+}
+
+// create new group chat
+const createGroupChat = (data = {name, participants : []}) => {
+    // The data is required for the group chat which contains name and participants
+    return api.post("api/v1/chat-app/chats/group", data)
+}
+
 
 export {
     loginUser,
     registerUser,
     logoutUser,
     getAllChats,
+    getAvailableUsers,
+    createUserChat,
+    createGroupChat,
 }

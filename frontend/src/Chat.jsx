@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
-import { getAllChats } from "./api/index.js";
+import { getAllChats, getAvailableUsers } from "./api/index.js";
 import { requestHandler } from "./utils/index.js";
 import { X } from "lucide-react";
+import AddChatModel from "./components/chat/AddChatModel.jsx";
 
 
 function Chat({ chatId }) {
@@ -12,6 +13,7 @@ function Chat({ chatId }) {
   const [loadingChats, setLoadingChats] = useState(false); // indicates chats are loading
   const [openAddChat, setOpenAddChat] = useState(false); // to control the add chat window
 
+  // Get all the chats that you are a part of
   const getChats = async () => {
     requestHandler(
       async () => await getAllChats(),
@@ -29,6 +31,14 @@ function Chat({ chatId }) {
   }, []);
 
   return (
+    <>
+    <AddChatModel
+    open={openAddChat}
+    onclose={() => {setOpenAddChat(false)}}
+    onSuccess={() => {
+      getChats()
+    }}
+    />
     <div className="h-screen w-full text-white bg-[#262629] relative flex items-center justify-center">
       <div className="w-2/3 h-2/3 border border-gray-600">
         <div className="w-1/3 h-full p-3 border-r border-gray-600">
@@ -51,21 +61,13 @@ function Chat({ chatId }) {
               ))}
             </ul>
           </div>
-
-          {/* Add Participants to chat window */}
-          {openAddChat && (
-            <div className="w-1/3 h-1/3 bg-gray-700 border rounded-2xl absolute left-2/4 -translate-x-2/4">
-              <X onClick={() => setOpenAddChat(!openAddChat)} className="absolute right-2 top-2 hover:text-red-500 transition hover:cursor-pointer"/>
-                <div className="flex justify-center mt-4">
-                  <input className="border text-xl p-1 rounded-2xl" type="text" />
-                </div>
-            </div>
-          )}
+          
 
 
         </div>
       </div>
     </div>
+    </>
   );
 }
 

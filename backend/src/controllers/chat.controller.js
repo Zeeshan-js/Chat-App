@@ -170,7 +170,7 @@ const createOrGetAOneOnOneChat = asyncHandler(async (req, res) => {
   }
 
   const newChat = await Chat.create({
-    name: receiver.username,
+    name: "One on one Chat",
     participants: [req.user._id, new mongoose.Types.ObjectId(receiverId)],
     admin: req.user._id,
   });
