@@ -53,6 +53,36 @@ const createGroupChat = (data = {name, participants : []}) => {
     return api.post("api/v1/chat-app/chats/group", data)
 }
 
+// Api call to change group name
+const changeGroupName = (chatId, name) => {
+    return api.patch(`api/v1/chat-app/chats/group/${chatId}`, { name } )
+}
+
+// Delete one on one chat
+const deleteOneOnOneChat = (chatId) => {
+    return api.delete(`api/v1/chat-app/chats/remove/${chatId}`)
+}
+
+// Delete Group chat
+const deleteGroup = (chatId) => {
+    return api.delete(`api/v1/chat-app/chats/group/${chatId}`)
+}
+
+// Get Group Chat details
+const getGroupDetails = (chatId) => {
+    return api.get(`api/v1/chat-app/chats/group/${chatId}`)
+}
+
+// Add new Particiapants to group chat
+const addNewParticipantsToGroup = (chatId, participantId) => {
+    return api.post(`api/v1/chat-app/chats/group/${chatId}/${participantId}`)
+}
+
+// Remove participants from group chat
+const removeGroupParticipants = (chatId, participantId) => {
+    return api.delete(`api/v1/chat-app/chats/group/${chatId}/${participantId}`)
+}
+
 
 export {
     loginUser,
@@ -62,4 +92,10 @@ export {
     getAvailableUsers,
     createUserChat,
     createGroupChat,
+    changeGroupName,
+    deleteOneOnOneChat,
+    deleteGroup,
+    getGroupDetails,
+    addNewParticipantsToGroup,
+    removeGroupParticipants,
 }

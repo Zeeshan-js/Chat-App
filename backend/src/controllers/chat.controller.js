@@ -414,7 +414,7 @@ const deleteOneOnOneChat = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Chat does not exists");
   }
 
-  await Chat.deleteOne(chatId);
+  await Chat.findByIdAndDelete(chatId);
   await deleteCascadeChatMessages(chatId);
 
   const otherParticipant = payload?.participants?.find(

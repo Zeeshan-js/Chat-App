@@ -1,8 +1,5 @@
-import axios from "axios";  
 import { Mail, Lock } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
-import { loginUser } from "./api/index.js";
 import { useAuth } from "./context/AuthContext.jsx";
 
 function Login() {
@@ -54,7 +51,7 @@ function Login() {
             />
           </div>
 
-          <button onClick={handleSubmit} className="w-full border rounded-lg p-2 text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition">Login</button>
+          <button className="w-full border rounded-lg p-2 text-white cursor-pointer bg-blue-500 hover:bg-blue-600 transition">Login</button>
         </form>
         <p className="text-sm mt-5 text-center">Don't have an account <a href='/register' className="text-blue-600 underline">sign up</a> here</p>
       </div>

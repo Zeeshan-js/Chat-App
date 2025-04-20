@@ -8,13 +8,17 @@ const PublicRoute = ({ children }) => {
     
     // extracts both from context
     
-    const { token, user } = useAuth()
-
-    // if there is token and userID then we navigate to main page
-    if ( token && user._id ) {
-        return <Navigate to='/main' replace />
+    try {
+        const { token, user } = useAuth()
+    
+        // if there is token and userID then we navigate to main page
+        if ( token && user._id ) {
+            return <Navigate to='/main' replace />
+        }
+        return children
+    } catch (error) {
+        console.log(error)
     }
-    return children
 }
 
 export default PublicRoute;

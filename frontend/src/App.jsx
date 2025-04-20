@@ -5,6 +5,7 @@ import Register from "./Register.jsx";
 import Login from "./Login.jsx";
 import Chat from "./Chat.jsx";
 import PublicRoute from "./components/PublicRoute.jsx";
+import PrivateRoute from "./components/PrivateRoute.jsx";
 
 function App() {
   return (
@@ -34,9 +35,10 @@ function App() {
         <Route
           path="/main"
           element={
-            <PublicRoute>
+            // A private for protectoin
+            <PrivateRoute>
               <Chat />
-            </PublicRoute>
+            </PrivateRoute>
           }
         />
       </Routes>

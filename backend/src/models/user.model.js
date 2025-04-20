@@ -77,7 +77,15 @@ userSchema.methods.generateRefreshToken = function () {
 userSchema.pre("save", async function(next) {
     if (!this.isModified("password")) return
     this.password = await bcrypt.hash(this.password, 10)
-    next()
+    
+  if (!this.avatar || !this.avatar.url) {
+    this.avatar = {
+      url: "user.avif",
+      localPath: "./public/temp"
+    }
+  }
+  next()
+
 })
 
 
