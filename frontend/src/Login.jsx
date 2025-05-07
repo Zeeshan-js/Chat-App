@@ -15,10 +15,8 @@ function Login() {
   }
 
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    return await login(data)
-  }
+  const handleSubmit = async () => await login(data)
+  
 
 
 

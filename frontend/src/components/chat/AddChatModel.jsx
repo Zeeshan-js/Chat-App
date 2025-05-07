@@ -111,7 +111,7 @@ const AddChatModel = ({ open, onclose, onSuccess }) => {
   }, [open]);
 
   return (
-    <div className="w-2/6 border border-gray-400 rounded-2xl bg-black/35 absolute left-2/4 top-1/3 -translate-x-2/4">
+    <div className="w-2/6 border border-gray-400 rounded-2xl bg-black/35 fixed z-20 left-2/4 top-1/3 -translate-x-2/4">
       <div className="relative h-full p-4 pt-10 text-center sm:items-start">
         <X
           onClick={onclose}
@@ -196,7 +196,7 @@ const AddChatModel = ({ open, onclose, onSuccess }) => {
             </div>
           </div>
         ) : null}
-        <div className="flex gap-3">
+        <div className="flex gap-3 z-0">
           <button
             onClick={onclose}
             className="border p-2 w-2/4 rounded-3xl cursor-pointer hover:bg-gray-700"

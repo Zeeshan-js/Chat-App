@@ -16,6 +16,7 @@ import fs from "fs"
         try {
             // Upload it on cloudinary
             const upload = await cloudinary.uploader.upload(filePath, { resource_type: "auto" })
+            console.log(filePath)
             
             // After uploading remove from local storage
             fs.unlinkSync(filePath)

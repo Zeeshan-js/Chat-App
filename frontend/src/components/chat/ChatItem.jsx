@@ -47,9 +47,9 @@ const ChatItem = ({
         onClick={() => onClick(chat)}
         onMouseLeave={() => setOpenOptions(false)}
         className={className(
-          "flex items-center gap-3 group cursor-pointer",
+          "flex items-center gap-3 group cursor-pointer hover:bg-gray-600 rounded-2xl p-1 pr-3 mb-1",
           isActive ? "border-[1px] border-zinc-500 bg-gray-800" : "",
-          unreadCount > 0 ? "border-[1px] border-s-emerald-500 bg-gray-800" : ""
+          unreadCount > 0 ? "border-[1px] border-green-500 bg-gray-800" : ""
         )}
       >
         <button
@@ -133,6 +133,13 @@ const ChatItem = ({
             {getChatObjectMetadata(chat, user).title}
           </p>
         </div>
+        {unreadCount <= 0 ? null : (
+          <div className="w-2 h-2 p-2 inline-flex text-xs ml-auto justify-center items-center rounded-full bg-green-500 ">
+          <span>
+            {unreadCount.length > 9 ? "9+" : unreadCount}
+          </span>
+        </div>
+        )}
       </div>
     </>
   );

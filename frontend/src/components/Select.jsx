@@ -21,11 +21,12 @@ export default function Switch({ options, value, onChange, placeholder }) {
       <Combobox
         value={options.find((o) => o.value === value)}
         onChange={(value) => onChange(value)}
-        onClose={() => setQuery("")}
+        className={"w-full"}
+        as="div"
       >
         <div className="relative">
           <ComboboxInput
-            className="w-full rounded-lg border-none bg-white/5 py-1.5 pr-8 pl-3 text-sm/6 text-white focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
+            className="w-full block rounded-lg border-none bg-white/5 py-1.5 pr-8 pl-3 text-sm/6 text-white focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25"
             displayValue={(person) => person?.label}
             onChange={(e) =>
               setSelected(
@@ -43,7 +44,7 @@ export default function Switch({ options, value, onChange, placeholder }) {
         <ComboboxOptions
           anchor="bottom"
           transition
-          className="w-[var(--input-width)] rounded-xl border border-white/5 bg-black p-1 [--anchor-gap:var(--spacing-1)] empty:invisible transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0"
+          className="w-[var(--input-width)] rounded-xl border border-white/5 z-40 bg-black p-1 [--anchor-gap:var(--spacing-1)] empty:invisible transition duration-100 ease-in data-[leave]:data-[closed]:opacity-0"
         >
           {selected.map((person, i) => (
             <ComboboxOption

@@ -4,13 +4,13 @@ import fs from "fs"
 
 // returns the file's static path from where the server is serving the static image
 export const getStaticFilePath = (req, filename) => {
-    return `${req}://${req.get("host")}/images/${filename}`
+    return `${req.protocol}://${req.get("host")}/temp/${filename}`
 }
 
  
 // returns the file local path in the file system to assists the future removal
 export const getLocalPath = (fileName) => {
-    return `public/images/${fileName}`
+    return `public/temp/${fileName}`
 }
 
 

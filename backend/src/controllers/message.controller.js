@@ -58,7 +58,7 @@ const getAllMessages = asyncHandler(async (req, res) => {
     const messages = await Message.aggregate([
         {
             $match: {
-                _id: new mongoose.Types.ObjectId(chatId)
+                chat: new mongoose.Types.ObjectId(chatId)
             }
         },
         ...chatMessageCommonAggregation(),
@@ -93,7 +93,7 @@ const sendMessage = asyncHandler(async (req, res) => {
     const attachments = []
 
     // If there are attachments we map through them and push them in the attachments array
-    if (req.files && req.files.attachment.length > 0) {
+    if (req.files && req.files.attachment?.length > 0) {
         req.files?.attachment?.map((files) => {
             attachments.push({
                 url: getStaticFilePath(req, files.filename),
@@ -132,7 +132,7 @@ const sendMessage = asyncHandler(async (req, res) => {
         throw new ApiError(500, "Internal server error")
     }
 
-    chat?.participants?.forEach((participantId) => {
+    newChat?.participants?.forEach((participantId) => {
         if (participantId.toString() === req.user._id.toString()) return // don't emit the event to the sender 
 
         emitSocketEvent(

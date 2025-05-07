@@ -3,6 +3,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import { Server } from "socket.io"
 import { createServer } from "http"
+import { initializeSocketIo } from "./common/index.js"
 
 
 const app = express()
@@ -37,7 +38,6 @@ initializeSocketIo(io)
 import userRoute from "./routes/user.routes.js"
 import chatRoute from "./routes/chat.routes.js"
 import messageRoute from "./routes/message.routes.js"
-import { initializeSocketIo } from "./common/index.js"
 
   app.use("/api/v1/user", userRoute)
   app.use("/api/v1/chat-app/chats", chatRoute)

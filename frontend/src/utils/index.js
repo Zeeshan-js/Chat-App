@@ -97,7 +97,7 @@ export const requestHandler = async (api, setLoading, onSuccess, onError) => {
     }
   } catch (error) {
     // Handle error cases, including unauthorized and forbidden cases
-    console.log("This is error", error);
+    console.log("This is error", error.message);
     localStorage.clear();
     onError(error.message || "Something went wrong");
   } finally {
