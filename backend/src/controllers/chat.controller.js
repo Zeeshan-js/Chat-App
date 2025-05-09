@@ -372,7 +372,7 @@ const deleteGroupChat = asyncHandler(async (req, res) => {
     throw new ApiError(404, "Group chat does not exists");
   }
 
-  if (chat.admin._id.toString() !== req.uesr._id.toString()) {
+  if (chat.admin._id.toString() !== req.user._id.toString()) {
     throw new ApiError(400, "Only admin can delete a group chat");
   }
 
@@ -385,7 +385,7 @@ const deleteGroupChat = asyncHandler(async (req, res) => {
 
     emitSocketEvent(
       req,
-      participant._id.toString(),
+      participant._id?.toString(),
       ChatEventEnum.LEAVE_CHAT_EVENT,
       chat
     );

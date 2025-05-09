@@ -5,7 +5,7 @@ import {
   Paperclip,
   XCircleIcon,
   CircleX,
-  Power
+  Power,
 } from "lucide-react";
 import {
   changeGroupName,
@@ -243,6 +243,7 @@ function Chat() {
       LocalStorage.remove("currentChat");
     }
 
+    console.log("Chat is deleted")
     // update the chats by removing the chat that the user left
     setChats((prev) => prev.filter((c) => c._id !== chat._id));
   };
@@ -297,7 +298,6 @@ function Chat() {
       currentChat.current = _current;
 
       socket?.emit(JOIN_CHAT_EVENT, currentChat.current?._id);
-      
 
       getMessages();
     }
@@ -323,7 +323,7 @@ function Chat() {
     // Listener for when a message is deleted
     socket.on(MESSAGE_DELETE_EVENT, onMessageDelete);
     // Listener for when group chat name updates
-    socket.on(UPDATE_GROUP_NAME_EVENT, onGroupChatNameUpdate)
+    socket.on(UPDATE_GROUP_NAME_EVENT, onGroupChatNameUpdate);
 
     return () => {
       // remove all the event we set up to avoid memory leaks and unintented behavious
@@ -335,7 +335,7 @@ function Chat() {
       socket.off(NEW_CHAT_EVENT, onNewChat);
       socket.off(LEAVE_CHAT_EVENT, onChatLeave);
       socket.off(MESSAGE_DELETE_EVENT, onMessageDelete);
-      socket.off(UPDATE_GROUP_NAME_EVENT, onGroupChatNameUpdate)
+      socket.off(UPDATE_GROUP_NAME_EVENT, onGroupChatNameUpdate);
     };
   }, [socket, chats]);
 
@@ -357,13 +357,16 @@ function Chat() {
 
           <div className="w-1/3 h-full p-3 border-r border-gray-700/40">
             <div className="flex items-center text-center justify-between pb-1">
-            <h2 className="text-2xl font-bold">Chatters</h2>
-            <Power className="hover:text-red-500 transition cursor-pointer" onClick={() => {
-              const ok = confirm("Are you sure you want to logout")
-              if (ok) {
-                logout()
-              }
-            }}/>
+              <h2 className="text-2xl font-bold">Chatters</h2>
+              <Power
+                className="hover:text-red-500 transition cursor-pointer"
+                onClick={() => {
+                  const ok = confirm("Are you sure you want to logout");
+                  if (ok) {
+                    logout();
+                  }
+                }}
+              />
             </div>
             <div className="mt-3 flex gap-2">
               <input
@@ -419,10 +422,11 @@ function Chat() {
                         }
                         onDeleteChat={(c) => {
                           setChats((prev) =>
-                            prev.filter((chatId) => chatId !== c)
+                            prev.filter((chat) => chat._id !== c)
                           );
                           if (currentChat.current?.id === c) {
                             currentChat.current = null;
+                            LocalStorage.remove("currentChat");
                           }
                         }}
                       />

@@ -11,6 +11,15 @@ function App() {
   return (
     <div>
       <Routes>
+        <Route
+          path="/"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+
         {/* Route for registeration */}
         <Route
           path="/register"

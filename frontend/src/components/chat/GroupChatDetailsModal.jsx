@@ -107,6 +107,7 @@ const GroupChatDetailsModal = ({ open, onClose, chatId, onGroupDelete }) => {
           participants: data.participants || [],
         };
         setGroupChatDetails(updatedGroupDetails);
+        console.log("Group details :", groupChatDetails)
         alert("Participant added");
       },
       alert
@@ -313,12 +314,12 @@ const GroupChatDetailsModal = ({ open, onClose, chatId, onGroupDelete }) => {
                           <div className="w-full border-t border-gray-500 pt-2">
                             <div className="mt-2">
                               <button
-                                className="w-full h-10 mb-2 p-2 rounded-2xl bg-blue-500 text-white flex justify-center items-center gap-2"
+                                className="w-full h-10 mb-2 p-2 rounded-2xl bg-blue-500 text-white flex justify-center items-center gap-2 cursor-pointer"
                                 onClick={() => setAddingNewParticipants(true)}
                               >
                                 <UserRoundPlus /> Add Participants
                               </button>
-                              <button className="w-full h-10 p-2 rounded-2xl bg-red-400 text-white flex justify-center items-center gap-2">
+                              <button onClick={deleteGroupChat} className="w-full h-10 p-2 rounded-2xl bg-red-400 text-white flex justify-center items-center gap-2 cursor-pointer">
                                 <Trash2 /> Delete Group
                               </button>
 

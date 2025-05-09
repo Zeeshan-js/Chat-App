@@ -5,7 +5,7 @@ import { loginUser, logoutUser, registerUser } from "../api/index.js";
 import Loader from "../components/Loader.jsx";
 
 // Context to manage to authentication-related data and function
-export const AuthContext = createContext({
+const AuthContext = createContext({
   user: null,
   token: null,
   login: async (data) => {},
@@ -13,9 +13,9 @@ export const AuthContext = createContext({
   logout: async () => {},
 });
 
-export const useAuth = () => useContext(AuthContext);
+const useAuth = () => useContext(AuthContext);
 
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
@@ -89,3 +89,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export { useAuth, AuthProvider, AuthContext };
