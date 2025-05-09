@@ -26,7 +26,7 @@ const loginUser = (data) => {
 };
 
 const registerUser = (data = { username, email, password }) => {
-  return api.post(`${import.meta.env.VITE_SERVER_URI}/api/v1/user/register`, data);
+  return api.post("/register", data);
 };
 
 const logoutUser = () => {
