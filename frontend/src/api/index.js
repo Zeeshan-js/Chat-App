@@ -22,15 +22,15 @@ api.interceptors.request.use(
 );
 
 const loginUser = (data) => {
-  return api.post("user/login", data);
+  return api.post("login", data);
 };
 
 const registerUser = (data = { username, email, password }) => {
-  return api.post("user/register", data);
+  return api.post("register", data);
 };
 
 const logoutUser = () => {
-  return api.post("user/logout");
+  return api.post("logout");
 };
 
 const getAllChats = () => {
