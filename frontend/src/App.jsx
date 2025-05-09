@@ -22,7 +22,7 @@ function App() {
 
         {/* Route for registeration */}
         <Route
-          path="register"
+          path="/register"
           element={
             <PublicRoute>
               <Register />
@@ -32,7 +32,7 @@ function App() {
 
         {/* Route fro login */}
         <Route
-          path="login"
+          path="/login"
           element={
             <PublicRoute>
               <Login />
@@ -42,7 +42,7 @@ function App() {
 
         {/* Route for Chat */}
         <Route
-          path="main"
+          path="/main"
           element={
             // A private for protectoin
             <PrivateRoute>
