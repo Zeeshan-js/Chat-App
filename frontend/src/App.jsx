@@ -30,7 +30,7 @@ function App() {
 
         {/* Route for registeration */}
         <Route
-          path="/register"
+          path="/user/register"
           element={
             <PublicRoute>
               <Register />
@@ -40,7 +40,7 @@ function App() {
 
         {/* Route fro login */}
         <Route
-          path="/login"
+          path="/user/login"
           element={
             <PublicRoute>
               <Login />
