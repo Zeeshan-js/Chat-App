@@ -22,7 +22,7 @@ api.interceptors.request.use(
 );
 
 const loginUser = (data) => {
-  return api.post("/api/v1/user/login", data);
+  return api.post("/user/login", data);
 };
 
 const registerUser = (data = { username, email, password }) => {
