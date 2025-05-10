@@ -22,7 +22,7 @@ api.interceptors.request.use(
 );
 
 const loginUser = (data) => {
-  return api.post(`${import.meta.env.VITE_SERVER_URI}/api/v1/user/login`, data);
+  return api.post("/login", data);
 };
 
 const registerUser = (data = { username, email, password }) => {
