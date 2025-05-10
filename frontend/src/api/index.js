@@ -26,7 +26,7 @@ const loginUser = (data) => {
 };
 
 const registerUser = (data = { username, email, password }) => {
-  return api.post("/register", data);
+  return api.post("/user/register", data);
 };
 
 const logoutUser = () => {
