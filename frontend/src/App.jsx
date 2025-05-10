@@ -6,17 +6,25 @@ import Login from "./Login.jsx";
 import Chat from "./Chat.jsx";
 import PublicRoute from "./components/PublicRoute.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
+import { useAuth } from "./context/AuthContext.jsx";
 
 function App() {
+  const { token, user } = useAuth()
   return (
     <div>
       <Routes>
         <Route
           path="/"
           element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
+            token && user?._id ? (
+              <PrivateRoute>
+                <Chat />
+              </PrivateRoute>
+            ) : (
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            )
           }
         />
 
