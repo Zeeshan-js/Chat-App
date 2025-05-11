@@ -49,17 +49,24 @@ const userSchema = new Schema(
 
 // generate Access Token for user
 userSchema.methods.generateAccessToken = function () {
-    return jwt.sign(
-      {
-        _id: this._id,
-        username: this.username,
-        email: this.email,
-      },
-      process.env.ACCESS_TOKEN_SECRET,
-      {
-        expiresIn: process.env.EXPIRE_ACCESS_TOKEN,
-      }
-    );
+    try {
+      return jwt.sign(
+        {
+          _id: this._id,
+          username: this.username,
+          email: this.email,
+        },
+        process.env.ACCESS_TOKEN_SECRET,
+        {
+          expiresIn: process.env.EXPIRE_ACCESS_TOKEN,
+        }
+      );
+    } catch (error) {
+      throw new ApiError(
+        401,
+        `This is the token error ${error}`
+      )
+    }
 };
 
 // generate Refresh Token
