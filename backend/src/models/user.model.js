@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import { AvailableRoles, UserRolesEnum } from "../constants.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { ApiError } from "../utils/ApiError.js";
 
 const userSchema = new Schema(
   {
@@ -48,17 +49,23 @@ const userSchema = new Schema(
 
 // generate Access Token for user
 userSchema.methods.generateAccessToken = function () {
-  return jwt.sign(
-    {
-      _id: this._id,
-      username: this.username,
-      email: this.email,
-    },
-    process.env.ACCESS_TOKEN_SECRET,
-    {
-      expiresIn: process.env.EXPIRE_ACCESS_TOKEN,
-    }
-  );
+  try {
+    return jwt.sign(
+      {
+        _id: this._id,
+        username: this.username,
+        email: this.email,
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      {
+        expiresIn: process.env.EXPIRE_ACCESS_TOKEN,
+      }
+    );
+  } catch (error) {
+    throw new ApiError(
+      401, error
+    )
+  }
 };
 
 // generate Refresh Token
