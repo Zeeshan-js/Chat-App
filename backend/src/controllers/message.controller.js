@@ -86,7 +86,7 @@ const sendMessage = asyncHandler(async (req, res) => {
     }
 
     // check for the content or attachments
-    if (!content || !req.files.attachment.length) {
+    if (!(content || req.files.attachment.length)) {
         throw new ApiError(400, "Content or attachment is required")
     }
 
