@@ -243,7 +243,7 @@ function Chat() {
       LocalStorage.remove("currentChat");
     }
 
-    console.log("Chat is deleted")
+    console.log("Chat is deleted");
     // update the chats by removing the chat that the user left
     setChats((prev) => prev.filter((c) => c._id !== chat._id));
   };
@@ -252,14 +252,11 @@ function Chat() {
     // check if the typing effect is emitting on current chat
     if (chatId !== currentChat.current?._id) return;
 
-    console.log("Typing in chat :", chatId);
-
     // Set the typing state to true for the current chat
     setIsTyping(true);
   };
 
   const handleOnSocketStopTyping = (chatId) => {
-    console.log("The typing is stopped");
     // check if the typing effect is emitting on current chat
     if (chatId !== currentChat.current?._id) return;
 
@@ -500,9 +497,13 @@ function Chat() {
             {currentChat.current === null ? null : (
               <div className="flex absolute justify-center items-center bottom-2 left-0 w-full p-2 gap-2">
                 <input
+                  value=""
                   max={5}
                   onChange={(e) => {
-                    if (e.target.files) setAttachedFile([...e.target.files]);
+                    if (e.target.files) {
+                      setAttachedFile([...e.target.files]);
+                      console.log("Changed")
+                    }
                   }}
                   id="photo"
                   type="file"

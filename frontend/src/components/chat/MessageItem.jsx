@@ -49,7 +49,7 @@ const MessageItem = ({
         >
           {message.attachment.length > 0 ? (
             <div>
-              {isOwnMessage ? (
+              {isOwnMessage && !message.content ? (
                 <>
                   <button
                     onClick={() => setOpenOptions(!openOptions)}
@@ -59,7 +59,7 @@ const MessageItem = ({
                     <div
                       onMouseLeave={() => setOpenOptions(false)}
                       className={className(
-                        "border rounded-xl text-center absolute z-30 hover:bg-blue-950 bg-gray-700 p-2",
+                        "border rounded-xl text-left absolute z-30 hover:bg-blue-950 bg-gray-700 p-2",
                         openOptions ? "block" : "hidden"
                       )}
                     >
@@ -73,6 +73,7 @@ const MessageItem = ({
                             deleteChatMessage(message);
                           }
                         }}
+                        role="button"
                         className="flex gap-2 cursor-pointer"
                       >
                         Delete Message <Trash />
@@ -146,7 +147,7 @@ const MessageItem = ({
                       <div
                         onMouseLeave={() => setOpenOptions(false)}
                         className={className(
-                          "border rounded-xl text-center absolute hover:bg-blue-950 bg-gray-700 p-2",
+                          "border z-20 rounded-xl text-left -translate-x-24 absolute bottom-0 hover:bg-blue-950 bg-gray-700 p-2",
                           openOptions ? "block" : "hidden"
                         )}
                       >
@@ -159,6 +160,7 @@ const MessageItem = ({
                             if (ok) deleteChatMessage();
                           }}
                           className="flex items-center text-sm gap-2 cursor-pointer"
+                          role="button"
                         >
                           Delete <Trash />
                         </p>
