@@ -421,7 +421,8 @@ function Chat() {
                           setChats((prev) =>
                             prev.filter((chat) => chat._id !== c)
                           );
-                          if (currentChat.current?.id === c) {
+                          socket.emit(CHAT_DELETED_EVENT, chat);
+                          if (currentChat.current?._id === c) {
                             currentChat.current = null;
                             LocalStorage.remove("currentChat");
                           }
@@ -502,7 +503,7 @@ function Chat() {
                   onChange={(e) => {
                     if (e.target.files) {
                       setAttachedFile([...e.target.files]);
-                      console.log("Changed")
+                      console.log("Changed");
                     }
                   }}
                   id="photo"

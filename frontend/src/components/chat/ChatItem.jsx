@@ -26,7 +26,7 @@ const ChatItem = ({
       async () => await deleteOneOnOneChat(chat._id),
       null,
       () => {
-        onDeleteChat(chat);
+        onDeleteChat(chat._id);
       },
       alert
     );
@@ -89,6 +89,7 @@ const ChatItem = ({
                     deleteChat();
                   }
                 }}
+                role="button"
                 className="inline-flex p-3 w-full font-semibold items-center rounded-lg hover:bg-gray-900"
               >
                 <Trash2 className="h-5 w-5 mr-2" />
