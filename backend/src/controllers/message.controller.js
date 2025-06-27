@@ -4,7 +4,6 @@ import { Chat } from "../models/chat.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import { cloudinaryUpload } from "../utils/cloudinary.js";
 import { getLocalPath, getStaticFilePath, removeLocalFile } from "../utils/helper.js";
 import { emitSocketEvent } from "../common/index.js";
 import { ChatEventEnum } from "../constants.js";

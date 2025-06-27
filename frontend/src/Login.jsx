@@ -25,6 +25,9 @@ function Login() {
       <div className="w-full h-1/2 max-w-sm border rounded-3xl p-4">
         <h2 className="text-center font-bold mb-4 text-2xl">Login</h2>
 
+        <p className="text-xl font-semibold">Mock Login</p>
+        <p>email:- <b>one@mail</b></p>
+        <p>password:- <b>one</b></p>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative">
             <Mail className="absolute top-3.5 left-3 text-gray-500" />
