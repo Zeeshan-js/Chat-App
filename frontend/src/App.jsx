@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import Register from "./Register.jsx";
 import Login from "./Login.jsx";
 import Chat from "./Chat.jsx";
@@ -17,13 +17,9 @@ function App() {
           path="/"
           element={
             token && user?._id ? (
-              <PrivateRoute>
-                <Chat />
-              </PrivateRoute>
+              <Navigate to="/main"/>
             ) : (
-              <PublicRoute>
-                <Login />
-              </PublicRoute>
+              <Navigate to="/login"/>
             )
           }
         />
